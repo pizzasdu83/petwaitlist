@@ -151,7 +151,7 @@
 		
 		function openGPopup() {
 			if (opened == 0){
-				document.getElementById("guiholder").style.display = "block";
+				document.querySelector(".guiholder").style.display = "block";
 				opened = 1;
 			} else {
 				closeGPopup();
@@ -159,7 +159,7 @@
 			updateDisplay();
 		}
 		function closeGPopup() {
-			document.getElementById("guiholder").style.display = "none";
+			document.querySelector(".guiholder").style.display = "none";
 			opened = 0
 		}
 
@@ -265,8 +265,79 @@
             	setTimeout(() => {
                 	img.remove();
             	}, duration * 1000);
+				
 			}
         }
+		const JSON_URL = "users.json";
+
+		function getDaysRemaining(dateStr) {
+			const [day, month, year] = dateStr.split('/');
+			const targetDate = new Date(year, month - 1, day);
+			const today = new Date();
+
+			const diffTime = targetDate - today;
+			return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+		}
+
+		const container = document.getElementById("container");
+		
+		function getDayCount(startDateStr) {
+			const [day, month, year] = startDateStr.split('/');
+			const startDate = new Date(year, month - 1, day);
+			const today = new Date();
+
+			const diffTime = today - startDate;
+			const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+			return diffDays + 1;
+		}
+
+		fetch(JSON_URL)
+			.then(res => res.json())
+			.then(data => {
+				data.forEach(user => {
+					const remaining = getDaysRemaining(user.date);
+
+					const div = document.createElement("div");
+					div.className = "user";
+
+					const img = document.createElement("img");
+					img.src = user.image;
+
+					const link = document.createElement("a");
+					link.href = user.link;
+					link.textContent = user.name;
+					link.target = "_blank";
+
+					const days = document.createElement("span");
+					
+					if (remaining > 1) {
+						days.textContent = `(${remaining} days left)`;
+					} else if (remaining === 1) {
+						days.textContent = "(1 day left)";
+					} else if (remaining === 0) {
+						days.textContent = "today :3";
+					} else {
+						days.textContent = "";
+					}
+					
+					const counter = document.getElementById("dayCounter");
+
+					const count = getDayCount("26/04/2026");
+
+					counter.textContent = `Day ${count} of petting everyone :3`;
+
+					if (remaining <= 0) {
+						div.appendChild(img);
+					}
+					div.appendChild(link);
+					div.appendChild(days);
+
+					container.appendChild(div);
+					
+				});
+			})
+			.catch(err => console.error("oreo with Jeson:", err));
 
 		updateDisplay();
 		applyColor();
