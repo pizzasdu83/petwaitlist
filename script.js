@@ -302,10 +302,14 @@
 					div.className = "user";
 
 					const img = document.createElement("img");
-					img.src = user.image;
+					img.src = `https://raw.githubusercontent.com/pizzasdu83/petwaitlist/refs/heads/main/images/${user.name.replace(/^u\//, "").replace(/ /g, "_")}.gif`;
 
 					const link = document.createElement("a");
-					link.href = user.link;
+					if (user.name.startsWith("u/")) {
+						link.href = `https://www.reddit.com/${user.name}`;
+					} else {
+						link.href = "https://www.youtube.com/watch?v=dtCZMge7oHQ";
+					}
 					link.textContent = user.name;
 					link.target = "_blank";
 
