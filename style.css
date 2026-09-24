@@ -13,6 +13,7 @@
 			height: 100vh;
   			background: linear-gradient(to top right,rgba(0, 0, 255, 1) 0%, rgba(255, 0, 0, 1) 100%);
 			overflow: scroll;
+			background-attachment: fixed;
 		}
 		body.r34 {
   			margin: 0;
@@ -30,6 +31,7 @@
 			height: 100vh;
 			background-image:url("https://raw.githubusercontent.com/pizzasdu83/ressources/main/suyu__Pattern-Background.png"); no-repeat;
 			overflow: scroll;
+			background-attachment: fixed;
 		}
 		body.preview {
 			margin: 0;
@@ -38,12 +40,14 @@
 			background-size: cover;
 			background-position: center;
 			overflow: scroll;
+			background-attachment: fixed;
 		}
 		body.fallin {
             margin: 0;
             padding: 0;
             overflow: scroll;
 			animation: arcEnCiel 10s linear infinite;
+			background-attachment: fixed;
         }
         .falling-image {
             position: absolute;
